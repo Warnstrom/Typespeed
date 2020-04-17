@@ -3,8 +3,10 @@
     <div clas="content">
       <div class="header">
         <h1>Hello, {{ username }}</h1>
-        <h3>Here you can try your typing speed.</h3>
-        <p style="right: 0;">60s</p>
+        <h3>
+          Here you can try your typing speed.
+          <span style="float: right;">{{ counter }}s</span>
+        </h3>
       </div>
       <div class="wordsContainer">
         <span v-for="word in wordList" :key="word.id">{{ word }}</span>
@@ -14,11 +16,16 @@
           name="username"
           class="textInput"
           v-model="input"
-          v-on:keydown.space="wordCheck"
+          v-on:keydown.space="wordCheck();"
           placeholder="Start typing..."
+          spellcheck="false"
+          autocomplete="off"
         />
         <button class="playAgainButton">Try again</button>
       </form>
+    </div>
+    <div class="testReview">
+      <h2>Typespeed test review</h2>
     </div>
   </div>
 </template>
@@ -33,7 +40,8 @@ export default {
     return {
       wordList: [],
       input: "",
-      username: getCookie("username")
+      username: getCookie("username"),
+      counter: ""
     };
   },
   mounted() {
@@ -43,6 +51,7 @@ export default {
     readWords() {
       this.wordList = getWords();
     },
+
     wordCheck() {
       let inputWord = this.input;
       if (inputWord.trim() == this.wordList[0]) {
@@ -61,27 +70,37 @@ export default {
   justify-content: center;
   height: 100vh;
   width: 100%;
+  color: #161b1f;
 }
 
 .content {
   text-align: center;
   line-height: 1.5;
-  width: 170px;
+  width: 800px;
   padding: 14px;
   transition: all 0.3s;
   font-size: 14px;
   border-radius: 3px;
   white-space: nowrap;
 }
-span {
+.wordsContainer > span {
   line-height: 45px;
   font-weight: 400;
   font-size: 25px;
   margin: 5px;
 }
 
-span:first-child {
+.wordsContainer > span:first-child {
   color: rgb(27, 207, 27);
+}
+
+.testReview {
+  height: 500px;
+  width: 450px;
+  background-color: #eef2f7;
+  border-radius: 14px;
+  padding: 0 20px 20px 20px;
+  margin-left: 200px;
 }
 
 .playAgainButton {
@@ -113,7 +132,6 @@ span:first-child {
   margin-top: 20px;
   margin-bottom: 150px;
   display: inline-block;
-  color: #161b1f;
   padding: 15px;
   border: 0;
   border-radius: 14px;
@@ -133,7 +151,6 @@ span:first-child {
   display: inline-block;
   line-height: 34px;
   font-weight: 400;
-  color: #161b1f;
   padding-left: 10px;
   padding-right: 10px;
   padding-top: 0;
