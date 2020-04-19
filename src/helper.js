@@ -36,6 +36,7 @@ export const getWords = () => {
     }
     return words;
 }
+
 /*
 fs.readFile("words.txt", function (err, data) {
     if (err) throw err;

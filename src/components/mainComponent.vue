@@ -26,13 +26,14 @@
     </div>
     <div class="testReview">
       <h2>Typespeed test review</h2>
+      <p>Correct words: {{ correctWords }}</p>
+      <p>Wrong words: {{ wrongWords }}</p>
     </div>
   </div>
 </template>
 
 <script>
-import { getWords } from "../helper.js";
-import { getCookie } from "../helper.js";
+import { getWords, getCookie } from "../helper.js";
 
 export default {
   name: "mainComponent",
@@ -41,7 +42,10 @@ export default {
       wordList: [],
       input: "",
       username: getCookie("username"),
-      counter: ""
+      counter: this.timer(),
+      correctWords: 0,
+      wrongWords: 0,
+      running: false
     };
   },
   mounted() {
@@ -53,11 +57,20 @@ export default {
     },
 
     wordCheck() {
-      let inputWord = this.input;
-      if (inputWord.trim() == this.wordList[0]) {
-        this.wordList = this.wordList.splice(1, this.wordList.length);
-        this.input = "";
+      const inputWord = this.input;
+      if (this.running) {
+        if (inputWord.trim() == this.wordList[0]) {
+          this.wordList = this.wordList.splice(1, this.wordList.length);
+          this.input = "";
+          this.correctWords++;
+        } else {
+          this.wrongWords++;
+        }
       }
+    },
+    timer() {
+      let timeLeft = 60;
+      return timeLeft;
     }
   }
 };
@@ -101,6 +114,9 @@ export default {
   border-radius: 14px;
   padding: 0 20px 20px 20px;
   margin-left: 200px;
+}
+.testReview > p {
+  font-size: 18px;
 }
 
 .playAgainButton {
