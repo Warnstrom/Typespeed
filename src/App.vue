@@ -8,6 +8,7 @@
 <script>
 import mainComponent from './components/mainComponent.vue'
 import username from './components/username.vue'
+
 import { getCookie } from './helper.js'
 
 

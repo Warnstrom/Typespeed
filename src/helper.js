@@ -36,6 +36,16 @@ export const getWords = () => {
     }
     return words;
 }
+let time = 60;
+let interval = setInterval(timer, 1000);
+
+export function timer () {
+    if (time == 0) {
+        clearInterval(interval);
+    }
+    //console.log(time)
+    return time--;
+}
 
 /*
 fs.readFile("words.txt", function (err, data) {

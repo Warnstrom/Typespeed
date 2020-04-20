@@ -5,7 +5,7 @@
         <h1>Hello, {{ username }}</h1>
         <h3>
           Here you can try your typing speed.
-          <span style="float: right;">{{ counter }}s</span>
+          <span style="float: right;">{{ time }}s</span>
         </h3>
       </div>
       <div class="wordsContainer">
@@ -21,8 +21,8 @@
           spellcheck="false"
           autocomplete="off"
         />
-        <button class="playAgainButton">Try again</button>
       </form>
+      <button class="playAgainButton" v-on:click="reset();">Try again</button>
     </div>
     <div class="testReview">
       <h2>Typespeed test review</h2>
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { getWords, getCookie } from "../helper.js";
+import { getWords, getCookie, timer } from "../helper.js";
 
 export default {
   name: "mainComponent",
@@ -42,35 +42,41 @@ export default {
       wordList: [],
       input: "",
       username: getCookie("username"),
-      counter: this.timer(),
+      time: "",
       correctWords: 0,
-      wrongWords: 0,
-      running: false
+      wrongWords: 0
     };
   },
   mounted() {
     this.readWords();
+    this.counter();
   },
   methods: {
     readWords() {
       this.wordList = getWords();
     },
-
     wordCheck() {
-      const inputWord = this.input;
-      if (this.running) {
-        if (inputWord.trim() == this.wordList[0]) {
-          this.wordList = this.wordList.splice(1, this.wordList.length);
-          this.input = "";
-          this.correctWords++;
-        } else {
-          this.wrongWords++;
-        }
+      let inputWord = this.input;
+      console.log(this.input[0]);
+      if (inputWord.trim() == this.wordList[0]) {
+        const removeFirstElement = this.wordList.shift();
+        this.wordList.push(removeFirstElement)
+        this.input = "";
+        this.correctWords++;
+      } else {
+        this.wrongWords++;
+        this.correctWords--;
       }
     },
-    timer() {
-      let timeLeft = 60;
-      return timeLeft;
+    counter() {
+      this.time = timer();
+    },
+    reset() {
+      this.wordList = "";
+      this.readWords();
+      this.input = "";
+      this.wrongWords = 0;
+      this.correctWords = 0;
     }
   }
 };
@@ -120,19 +126,19 @@ export default {
 }
 
 .playAgainButton {
-  display: inline-flex;
-  height: 80px;
+  float: right;
+  height: 60px;
   width: 100px;
-  border: 2px solid #123d6a;
+  margin-top: 15px;
+  border: 1px solid #2b5b8f;
   color: #fff;
-  background-color: #123d6a;
+  background-color: #2b5b8f;
   text-transform: uppercase;
   text-decoration: none;
-  font-size: 0.8em;
-  letter-spacing: 1.5px;
+  font-size: 10px;
+  letter-spacing: 1px;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
   cursor: pointer;
   border-radius: 14px;
 }
@@ -142,7 +148,7 @@ export default {
 }
 
 .wordsContainer {
-  width: 800px;
+  width: 850px;
   height: 80px;
   line-height: 34px;
   margin-top: 20px;
@@ -159,7 +165,7 @@ export default {
 }
 
 .textInput {
-  width: 660px;
+  width: 100%;
   height: 80px;
   font-size: 20px;
   line-height: 34px;
