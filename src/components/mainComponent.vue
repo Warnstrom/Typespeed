@@ -2,7 +2,10 @@
   <div class="container">
     <div clas="content">
       <div class="header">
-        <h1>Hello, {{ username }}</h1>
+        <h1>
+          <span class="left-border"></span>
+          Hello, {{ username }}
+        </h1>
         <h3>
           Here you can try your typing speed.
           <span style="float: right;">{{ time }}s</span>
@@ -76,6 +79,7 @@ export default {
     counter() {
       setInterval(() => {
         if (this.time == 0) {
+          this.running = false;
           clearInterval();
         } else {
           this.time--;
@@ -118,6 +122,15 @@ export default {
   border-radius: 3px;
   white-space: nowrap;
 }
+.left-border {
+  width: 4px;
+  background: #1633ff;
+  border-radius: 5px;
+  height: 40px;
+  margin-right: 12px;
+  display: inline-block;
+  vertical-align: middle;
+}
 .wordsContainer > span {
   line-height: 45px;
   font-weight: 400;
@@ -126,14 +139,14 @@ export default {
 }
 
 .wordsContainer > span:first-child {
-  color: rgb(27, 207, 27);
+  color: #25d366;
 }
 
 .testReview {
   height: 560px;
   width: 425px;
   background-color: #eef2f7;
-  border-radius: 14px;
+  border-radius: 10px;
   padding: 0 20px 20px 20px;
   margin-left: 150px;
 }
@@ -142,37 +155,36 @@ export default {
 }
 
 .playAgainButton {
+  transition: 0.3s;
   float: right;
   height: 60px;
   width: 100px;
   margin-top: 40px;
-  border: 1px solid #2b5b8f;
+  border: none;
   color: #fff;
-  background-color: #2b5b8f;
+  background-color: #0069ff;
   text-transform: uppercase;
   text-decoration: none;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 1px;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  border-radius: 14px;
+  border-radius: 10px;
 }
 .playAgainButton:hover {
-  border: 2px solid #0f335a;
-  background-color: #0f335a;
+  background-color: #1633ff;
 }
 
 .wordsContainer {
   width: 850px;
   height: 80px;
-  line-height: 34px;
   margin-top: 20px;
   margin-bottom: 150px;
   display: inline-block;
   padding: 15px;
   border: 0;
-  border-radius: 14px;
+  border-radius: 10px;
   outline: 0;
   background-color: #eef2f7;
   vertical-align: top;
@@ -194,11 +206,17 @@ export default {
   padding-top: 0;
   padding-bottom: 0;
   margin-right: 40px;
-  border: 0;
-  border-radius: 14px;
+  border-radius: 10px;
+  border: none;
   outline: 0;
   background-color: #eef2f7;
   vertical-align: top;
   box-sizing: border-box;
+}
+.textInput:focus {
+  border-left: 3px solid #1633ff;
+  border-top: none;
+  border-bottom: none;
+  border-right: 3px solid #1633ff;
 }
 </style>

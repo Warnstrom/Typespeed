@@ -49,21 +49,28 @@ input {
   padding-right: 10px;
   padding-top: 0;
   padding-bottom: 0;
-  border: 0;
+  border: none;
   border-radius: 14px;
   outline: 0;
   background-color: #eef2f7;
   vertical-align: top;
   box-sizing: border-box;
 }
+input:focus {
+  border-left: 3px solid #1633ff;
+  border-top: none;
+  border-bottom: none;
+  border-right: 3px solid #1633ff;
+}
 .playAgainButton {
+  transition: 0.3s;
   float: right;
   height: 60px;
   width: 100%;
   margin-top: 20px;
-  border: 1px solid #2b5b8f;
+  border: none;
   color: #fff;
-  background-color: #2b5b8f;
+  background-color: #0069ff;
   text-transform: uppercase;
   text-decoration: none;
   font-size: 14px;
@@ -71,11 +78,10 @@ input {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  border-radius: 20px;
+  border-radius: 14px;
 }
 .playAgainButton:hover {
-  border: 2px solid #0f335a;
-  background-color: #0f335a;
+  background-color: #1633ff;
 }
 .content {
   text-align: center;
