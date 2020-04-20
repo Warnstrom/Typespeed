@@ -70,7 +70,7 @@ input:focus {
   margin-top: 20px;
   border: none;
   color: #fff;
-  background-color: var(--blue);
+  background-color: var(--primary);
   text-transform: uppercase;
   text-decoration: none;
   font-size: 14px;
@@ -81,7 +81,7 @@ input:focus {
   border-radius: 14px;
 }
 .playAgainButton:hover {
-  background-color: var(--primary);
+  background-color: var(--blue);
 }
 .content {
   text-align: center;

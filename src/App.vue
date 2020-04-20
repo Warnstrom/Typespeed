@@ -80,7 +80,7 @@ body,
   outline: none;
 }
 :root {
-  --blue: #0069ff;
+  --blue: #1228ce;
   --indigo: #727cf5;
   --purple: #6b5eae;
   --pink: #ff679b;
@@ -95,7 +95,8 @@ body,
   --gray-dark: #3b506c;
   --primary: #1633ff;
   --secondary: #6e84a3;
-  --success: #00d97e;
+  --success: #0ab970;
+  /*00d97e*/
   --info: #39afd1;
   --warning: #f6c343;
   --danger: #e63757;

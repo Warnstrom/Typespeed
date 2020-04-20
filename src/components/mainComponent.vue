@@ -28,7 +28,7 @@
     </div>
     <div class="testReview">
       <div class="header">
-        <h2>{{ username }}'s test stats</h2>
+        <h2>Test end result</h2>
       </div>
       <div class="reviewContent">
         <p>WPM (Words per minute): {{ wpm }}</p>
@@ -88,7 +88,11 @@ export default {
         this.input = "";
         this.total++;
         this.wrong++;
-        this.correct--;
+        if (this.correct === 0) {
+          this.correct = 0;
+        } else {
+          this.correct--;
+        }
       }
     },
     startTest() {
@@ -139,9 +143,9 @@ export default {
 
 .left-border {
   width: 4px;
-  background: #1633ff;
+  background: var(--primary);
   border-radius: 5px;
-  height: 40px;
+  height: 35px;
   margin-right: 12px;
   display: inline-block;
   vertical-align: middle;
@@ -171,7 +175,7 @@ export default {
 button {
   transition: 0.3s;
   color: #fff;
-  background-color: var(--blue);
+  background-color: var(--primary);
   border: none;
   text-transform: uppercase;
   text-decoration: none;
@@ -197,9 +201,8 @@ button {
   letter-spacing: 1px;
   border-radius: 10px;
 }
-.playAgainButton:hover,
-.saveDataButton:hover {
-  background-color: var(--primary);
+button:hover {
+  background-color: var(--blue);
 }
 
 .wordsContainer {
