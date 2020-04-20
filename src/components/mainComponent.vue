@@ -5,11 +5,9 @@
         <h1>
           <span class="left-border"></span>
           Hello, {{ username }}
-        </h1>
-        <h3>
-          Here you can try your typing speed.
           <span style="float: right;">{{ time }}s</span>
-        </h3>
+        </h1>
+        <h3>Here you can try your typing speed.</h3>
       </div>
       <div class="wordsContainer">
         <span v-for="word in wordList" :key="word.id">{{ word }}</span>
@@ -29,9 +27,18 @@
       <button class="playAgainButton" v-on:click="reset();">Try again</button>
     </div>
     <div class="testReview">
-      <h2>{{ username }}'s test stats</h2>
-      <p>Correct words: {{ correctWords }}</p>
-      <p>Wrong words: {{ wrongWords }}</p>
+      <div class="header">
+        <h2>{{ username }}'s test stats</h2>
+      </div>
+      <div class="reviewContent">
+        <p>WPM (Words per minute): {{ wpm }}</p>
+        <p>Accuracy: {{ accuracy }}%</p>
+        <p>Correct words: {{ correct }}</p>
+        <p>Wrong words: {{ wrong }}</p>
+      </div>
+      <div class="footer">
+        <button class="saveDataButton">Save data</button>
+      </div>
     </div>
   </div>
 </template>
@@ -45,9 +52,12 @@ export default {
       wordList: [],
       input: "",
       username: getCookie("username"),
-      time: 10,
-      correctWords: 0,
-      wrongWords: 0,
+      time: 60,
+      correct: 0,
+      total: 0,
+      wrong: 0,
+      wpm: 0,
+      accuracy: 0,
       running: false
     };
   },
@@ -57,6 +67,12 @@ export default {
     readWords() {
       this.wordList = getWords();
     },
+    calcAccuracy() {
+      this.accuracy = Math.round((this.correct / this.total) * 100);
+    },
+    calcWordsPerMinute() {
+      this.wpm = Math.round((this.correct / this.time) * 100);
+    },
     // Checks for valid words in array and return true it shifts the element from start to end
     wordCheck() {
       let inputWord = this.input;
@@ -64,17 +80,24 @@ export default {
         const removeFirstElement = this.wordList.shift();
         this.wordList.push(removeFirstElement);
         this.input = "";
-        this.correctWords++;
+        this.correct++;
+        this.total++;
       } else {
-        this.wrongWords++;
-        this.correctWords--;
+        const removeFirstElement = this.wordList.shift();
+        this.wordList.push(removeFirstElement);
+        this.input = "";
+        this.total++;
+        this.wrong++;
+        this.correct--;
       }
     },
     startTest() {
-      this.running = true;
+      this.calcAccuracy();
+
+      /*this.running = true;
       if (this.running) {
         this.counter();
-      }
+      }*/
     },
     counter() {
       setInterval(() => {
@@ -82,18 +105,21 @@ export default {
           this.running = false;
           clearInterval();
         } else {
+          this.calcWordsPerMinute();
           this.time--;
         }
       }, 1000);
     },
     reset() {
-      this.time = 10;
+      this.time = 60;
       this.running = false;
       this.wordList = "";
       this.readWords();
       this.input = "";
-      this.wrongWords = 0;
-      this.correctWords = 0;
+      this.wrong = 0;
+      this.correct = 0;
+      this.total = 0;
+      this.accuracy = 0;
     }
   },
   created() {
@@ -109,19 +135,8 @@ export default {
   justify-content: center;
   height: 100vh;
   width: 100%;
-  color: #161b1f;
 }
 
-.content {
-  text-align: center;
-  line-height: 1.5;
-  width: 800px;
-  padding: 14px;
-  transition: all 0.3s;
-  font-size: 14px;
-  border-radius: 3px;
-  white-space: nowrap;
-}
 .left-border {
   width: 4px;
   background: #1633ff;
@@ -139,7 +154,7 @@ export default {
 }
 
 .wordsContainer > span:first-child {
-  color: #25d366;
+  color: var(--success);
 }
 
 .testReview {
@@ -153,27 +168,38 @@ export default {
 .testReview > p {
   font-size: 18px;
 }
-
-.playAgainButton {
+button {
   transition: 0.3s;
+  color: #fff;
+  background-color: var(--blue);
+  border: none;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+.playAgainButton {
   float: right;
   height: 60px;
   width: 100px;
   margin-top: 40px;
-  border: none;
-  color: #fff;
-  background-color: #0069ff;
-  text-transform: uppercase;
-  text-decoration: none;
   font-size: 12px;
   letter-spacing: 1px;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
   border-radius: 10px;
 }
-.playAgainButton:hover {
-  background-color: #1633ff;
+.saveDataButton {
+  height: 60px;
+  width: 80px;
+  margin-top: 40px;
+  font-size: 10px;
+  float: bottom;
+  letter-spacing: 1px;
+  border-radius: 10px;
+}
+.playAgainButton:hover,
+.saveDataButton:hover {
+  background-color: var(--primary);
 }
 
 .wordsContainer {
@@ -214,9 +240,10 @@ export default {
   box-sizing: border-box;
 }
 .textInput:focus {
-  border-left: 3px solid #1633ff;
+  border-left: 3px solid var(--primary);
+  color: var(--primary-text);
   border-top: none;
   border-bottom: none;
-  border-right: 3px solid #1633ff;
+  border-right: 3px solid var(--primary);
 }
 </style>

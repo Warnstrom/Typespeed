@@ -44,7 +44,7 @@ input {
   line-height: 34px;
   font-weight: 400;
   display: inline-block;
-  color: #161b1f;
+  color: #031b4e;
   padding-left: 20px;
   padding-right: 10px;
   padding-top: 0;
@@ -57,10 +57,10 @@ input {
   box-sizing: border-box;
 }
 input:focus {
-  border-left: 3px solid #1633ff;
+  border-left: 3px solid var(--primary);
   border-top: none;
   border-bottom: none;
-  border-right: 3px solid #1633ff;
+  border-right: 3px solid var(--primary);
 }
 .playAgainButton {
   transition: 0.3s;
@@ -70,7 +70,7 @@ input:focus {
   margin-top: 20px;
   border: none;
   color: #fff;
-  background-color: #0069ff;
+  background-color: var(--blue);
   text-transform: uppercase;
   text-decoration: none;
   font-size: 14px;
@@ -81,7 +81,7 @@ input:focus {
   border-radius: 14px;
 }
 .playAgainButton:hover {
-  background-color: #1633ff;
+  background-color: var(--primary);
 }
 .content {
   text-align: center;

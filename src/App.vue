@@ -1,24 +1,23 @@
 <template>
   <div id="app">
-    <username v-if="usernameIsSet" /> 
-    <mainComponent v-else/>
+    <username v-if="usernameIsSet" />
+    <mainComponent v-else />
   </div>
 </template>
 
 <script>
-import mainComponent from './components/mainComponent.vue'
-import username from './components/username.vue'
+import mainComponent from "./components/mainComponent.vue";
+import username from "./components/username.vue";
 
-import { getCookie } from './helper.js'
-
+import { getCookie } from "./helper.js";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     mainComponent,
     username
   },
-    data: function() {
+  data: function() {
     return {
       usernameIsSet: true
     };
@@ -29,10 +28,12 @@ export default {
   methods: {
     checkUsername() {
       const username = getCookie("username");
-      username != "" ? (this.usernameIsSet = false) : (this.usernameIsSet = true);
+      username != ""
+        ? (this.usernameIsSet = false)
+        : (this.usernameIsSet = true);
     }
   }
-}
+};
 </script>
 
 <style>
@@ -61,6 +62,8 @@ export default {
 }
 body {
   margin: 0;
+  padding: 0 15px 0 15px;
+  color: var(--primary-text);
 }
 body,
 * {
@@ -77,6 +80,28 @@ body,
   outline: none;
 }
 :root {
-    --font-family-sans-serif: "Cerebri Sans", sans-serif;
+  --blue: #0069ff;
+  --indigo: #727cf5;
+  --purple: #6b5eae;
+  --pink: #ff679b;
+  --red: #e63757;
+  --orange: #fd7e14;
+  --yellow: #f6c343;
+  --green: #00d97e;
+  --teal: #02a8b5;
+  --cyan: #39afd1;
+  --white: #ffffff;
+  --gray: #95aac9;
+  --gray-dark: #3b506c;
+  --primary: #1633ff;
+  --secondary: #6e84a3;
+  --success: #00d97e;
+  --info: #39afd1;
+  --warning: #f6c343;
+  --danger: #e63757;
+  --light: #edf2f9;
+  --dark: #12263f;
+  --font-family-sans-serif: "Cerebri Sans", sans-serif;
+  --primary-text: #031b4e;
 }
 </style>
