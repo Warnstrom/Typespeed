@@ -1,9 +1,10 @@
 <template>
   <div class="container">
     <div class="content">
-        <h1>Welcome, please write your username.</h1>
+      <h1>Welcome, please write your username.</h1>
       <form v-on:submit="saveUsername(input)">
         <input name="username" v-model="input" placeholder="Enter your username" />
+        <button class="playAgainButton">Log in</button>
       </form>
     </div>
   </div>
@@ -21,7 +22,7 @@ export default {
   },
   methods: {
     saveUsername(username) {
-      setCookie(username)
+      setCookie(username);
     }
   }
 };
@@ -37,7 +38,7 @@ export default {
 }
 
 input {
-  width: 525px;
+  width: 100%;
   height: 60px;
   font-size: 20px;
   line-height: 34px;
@@ -55,7 +56,27 @@ input {
   vertical-align: top;
   box-sizing: border-box;
 }
-
+.playAgainButton {
+  float: right;
+  height: 60px;
+  width: 100%;
+  margin-top: 20px;
+  border: 1px solid #2b5b8f;
+  color: #fff;
+  background-color: #2b5b8f;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 14px;
+  letter-spacing: 1px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 20px;
+}
+.playAgainButton:hover {
+  border: 2px solid #0f335a;
+  background-color: #0f335a;
+}
 .content {
   text-align: center;
   line-height: 1.5;

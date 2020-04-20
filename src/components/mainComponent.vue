@@ -16,8 +16,9 @@
           name="username"
           class="textInput"
           v-model="input"
-          v-on:keydown.space="wordCheck();"
+          v-on:keydown.space="wordCheck(); startTest();"
           placeholder="Start typing..."
+          :disabled="time != 0 ? false : true"
           spellcheck="false"
           autocomplete="off"
         />
@@ -25,7 +26,7 @@
       <button class="playAgainButton" v-on:click="reset();">Try again</button>
     </div>
     <div class="testReview">
-      <h2>Typespeed test review</h2>
+      <h2>{{ username }}'s test stats</h2>
       <p>Correct words: {{ correctWords }}</p>
       <p>Wrong words: {{ wrongWords }}</p>
     </div>
@@ -33,8 +34,7 @@
 </template>
 
 <script>
-import { getWords, getCookie, timer } from "../helper.js";
-
+import { getWords, getCookie } from "../helper.js";
 export default {
   name: "mainComponent",
   data: function() {
@@ -42,25 +42,24 @@ export default {
       wordList: [],
       input: "",
       username: getCookie("username"),
-      time: "",
+      time: 10,
       correctWords: 0,
-      wrongWords: 0
+      wrongWords: 0,
+      running: false
     };
   },
-  mounted() {
-    this.readWords();
-    this.counter();
-  },
+  mounted() {},
   methods: {
+    // Reads words from file into displayable array
     readWords() {
       this.wordList = getWords();
     },
+    // Checks for valid words in array and return true it shifts the element from start to end
     wordCheck() {
       let inputWord = this.input;
-      console.log(this.input[0]);
       if (inputWord.trim() == this.wordList[0]) {
         const removeFirstElement = this.wordList.shift();
-        this.wordList.push(removeFirstElement)
+        this.wordList.push(removeFirstElement);
         this.input = "";
         this.correctWords++;
       } else {
@@ -68,16 +67,33 @@ export default {
         this.correctWords--;
       }
     },
+    startTest() {
+      this.running = true;
+      if (this.running) {
+        this.counter();
+      }
+    },
     counter() {
-      this.time = timer();
+      setInterval(() => {
+        if (this.time == 0) {
+          clearInterval();
+        } else {
+          this.time--;
+        }
+      }, 1000);
     },
     reset() {
+      this.time = 10;
+      this.running = false;
       this.wordList = "";
       this.readWords();
       this.input = "";
       this.wrongWords = 0;
       this.correctWords = 0;
     }
+  },
+  created() {
+    this.readWords();
   }
 };
 </script>
@@ -105,7 +121,7 @@ export default {
 .wordsContainer > span {
   line-height: 45px;
   font-weight: 400;
-  font-size: 25px;
+  font-size: 20px;
   margin: 5px;
 }
 
@@ -114,12 +130,12 @@ export default {
 }
 
 .testReview {
-  height: 500px;
-  width: 450px;
+  height: 560px;
+  width: 425px;
   background-color: #eef2f7;
   border-radius: 14px;
   padding: 0 20px 20px 20px;
-  margin-left: 200px;
+  margin-left: 150px;
 }
 .testReview > p {
   font-size: 18px;
@@ -129,7 +145,7 @@ export default {
   float: right;
   height: 60px;
   width: 100px;
-  margin-top: 15px;
+  margin-top: 40px;
   border: 1px solid #2b5b8f;
   color: #fff;
   background-color: #2b5b8f;
