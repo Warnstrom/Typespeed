@@ -17,7 +17,7 @@ export default {
   name: "username",
   data: function() {
     return {
-      input: ""
+      input: "",
     };
   },
   methods: {
@@ -36,13 +36,11 @@ export default {
   height: 100vh;
   width: 100%;
 }
-
 input {
   width: 100%;
   height: 60px;
   font-size: 20px;
   line-height: 34px;
-  font-weight: 400;
   display: inline-block;
   color: #031b4e;
   padding-left: 20px;

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div clas="content">
+    <div class="content">
       <div class="header">
         <h1>
           <span class="left-border"></span>
@@ -12,33 +12,36 @@
       <div class="wordsContainer">
         <span v-for="word in wordList" :key="word.id">{{ word }}</span>
       </div>
-      <form>
-        <input
-          name="username"
-          class="textInput"
-          v-model="input"
-          v-on:keydown.space="wordCheck(); startTest();"
-          placeholder="Start typing..."
-          :disabled="time != 0 ? false : true"
-          spellcheck="false"
-          autocomplete="off"
-        />
-      </form>
-      <button class="playAgainButton" v-on:click="reset();">Try again</button>
+      <div class="inputContainer">
+        <form v-on:submit.prevent>
+          <input
+            name="username"
+            class="textInput"
+            v-model="input"
+            v-on:keydown.space="wordCheck(); calcAccuracy();"
+            v-on:keyup.space.once="startTest(); counter();"
+            placeholder="Start typing..."
+            :disabled="time != 0 ? false : true"
+            spellcheck="false"
+            autocomplete="off"
+          />
+          <button class="playAgainButton" v-on:click="reset();">
+            <i class="fa fa-refresh" style="font-size:22px;"></i>
+          </button>
+        </form>
+      </div>
     </div>
     <div class="testReview">
-      <div class="header">
-        <h2>Test end result</h2>
-      </div>
-      <div class="reviewContent">
+      <div class="content">
+        <h1>Test end result</h1>
         <p>WPM (Words per minute): {{ wpm }}</p>
         <p>Accuracy: {{ accuracy }}%</p>
         <p>Correct words: {{ correct }}</p>
         <p>Wrong words: {{ wrong }}</p>
       </div>
-      <div class="footer">
+      <footer>
         <button class="saveDataButton">Save data</button>
-      </div>
+      </footer>
     </div>
   </div>
 </template>
@@ -71,42 +74,32 @@ export default {
       this.accuracy = Math.round((this.correct / this.total) * 100);
     },
     calcWordsPerMinute() {
-      this.wpm = Math.round((this.correct / this.time) * 100);
+      this.wpm = this.correct;
     },
     // Checks for valid words in array and return true it shifts the element from start to end
     wordCheck() {
       let inputWord = this.input;
       if (inputWord.trim() == this.wordList[0]) {
-        const removeFirstElement = this.wordList.shift();
-        this.wordList.push(removeFirstElement);
+        this.wordList.push(this.wordList.shift());
         this.input = "";
         this.correct++;
         this.total++;
       } else {
-        const removeFirstElement = this.wordList.shift();
-        this.wordList.push(removeFirstElement);
+        this.wordList.push(this.wordList.shift());
         this.input = "";
         this.total++;
         this.wrong++;
-        if (this.correct === 0) {
+        if (this.correct == 0) {
           this.correct = 0;
-        } else {
-          this.correct--;
         }
       }
     },
     startTest() {
-      this.calcAccuracy();
-
-      /*this.running = true;
-      if (this.running) {
-        this.counter();
-      }*/
+      this.running = true;
     },
     counter() {
       setInterval(() => {
         if (this.time == 0) {
-          this.running = false;
           clearInterval();
         } else {
           this.calcWordsPerMinute();
@@ -123,6 +116,7 @@ export default {
       this.wrong = 0;
       this.correct = 0;
       this.total = 0;
+      this.wpm = 0;
       this.accuracy = 0;
     }
   },
@@ -134,11 +128,16 @@ export default {
 
 <style scoped>
 .container {
+  font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
   width: 100%;
+}
+.content {
+  transition: all 0.3s;
+  white-space: nowrap;
 }
 
 .left-border {
@@ -152,17 +151,19 @@ export default {
 }
 .wordsContainer > span {
   line-height: 45px;
-  font-weight: 400;
+  font-weight: bold;
   font-size: 20px;
   margin: 5px;
 }
 
 .wordsContainer > span:first-child {
-  color: var(--success);
+  background-color: var(--success);
+  border-radius: 5px;
+  padding: 5px;
 }
 
 .testReview {
-  height: 560px;
+  height: 350px;
   width: 425px;
   background-color: #eef2f7;
   border-radius: 10px;
@@ -185,24 +186,29 @@ button {
 }
 .playAgainButton {
   float: right;
-  height: 60px;
+  height: 80px;
   width: 100px;
-  margin-top: 40px;
   font-size: 12px;
   letter-spacing: 1px;
   border-radius: 10px;
 }
 .saveDataButton {
-  height: 60px;
-  width: 80px;
-  margin-top: 40px;
-  font-size: 10px;
-  float: bottom;
+  font-weight: bold;
+  height: 40px;
+  width: 100px;
+  margin-top: 60px;
+  background-color: #eef2f7;
+  color: var(--primary);
+  font-size: 13px;
+  float: right;
   letter-spacing: 1px;
-  border-radius: 10px;
+  border-radius: 8px;
+  border: 2px solid var(--primary);
 }
 button:hover {
   background-color: var(--blue);
+  border: 2px solid var(--blue);
+  color: white;
 }
 
 .wordsContainer {
@@ -222,7 +228,7 @@ button:hover {
 }
 
 .textInput {
-  width: 100%;
+  width: 700px;
   height: 80px;
   font-size: 20px;
   line-height: 34px;
@@ -234,8 +240,8 @@ button:hover {
   padding-right: 10px;
   padding-top: 0;
   padding-bottom: 0;
-  margin-right: 40px;
   border-radius: 10px;
+
   border: none;
   outline: 0;
   background-color: #eef2f7;

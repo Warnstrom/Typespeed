@@ -8,7 +8,7 @@
 <script>
 import mainComponent from "./components/mainComponent.vue";
 import username from "./components/username.vue";
-
+import api from "./api.js";
 import { getCookie } from "./helper.js";
 
 export default {
@@ -19,7 +19,7 @@ export default {
   },
   data: function() {
     return {
-      usernameIsSet: true
+      usernameIsSet: false
     };
   },
   mounted() {
@@ -31,7 +31,7 @@ export default {
       username != ""
         ? (this.usernameIsSet = false)
         : (this.usernameIsSet = true);
-    }
+    },
   }
 };
 </script>
@@ -64,6 +64,7 @@ body {
   margin: 0;
   padding: 0 15px 0 15px;
   color: var(--primary-text);
+  font-variant-numeric: tabular-nums 0;
 }
 body,
 * {
@@ -95,7 +96,7 @@ body,
   --gray-dark: #3b506c;
   --primary: #1633ff;
   --secondary: #6e84a3;
-  --success: #0ab970;
+  --success: #00d97e;
   /*00d97e*/
   --info: #39afd1;
   --warning: #f6c343;
