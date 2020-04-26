@@ -42,6 +42,7 @@
         <button class="saveDataButton">Save data</button>
       </footer>
     </div>
+    <button class="leaderboard">Leaderboard</button>
   </div>
 </template>
 
@@ -101,7 +102,7 @@ export default {
     },
     startTest() {
       if (this.running == false) {
-        var that = this;
+        let that = this;
         timer = setInterval(function() {
           that.counter();
         }, 1000);
@@ -161,6 +162,19 @@ export default {
   font-weight: bold;
   font-size: 20px;
   margin: 5px;
+}
+.leaderboard {
+  font-weight: bold;
+  height: 40px;
+  width: 120px;
+  margin-top: -450px;
+  margin-left: -420px;
+  background-color: white;
+  color: var(--primary);
+  font-size: 13px;
+  float: left;
+  letter-spacing: 1px;
+  border-radius: 8px;
 }
 
 .wordsContainer > span:first-child {
