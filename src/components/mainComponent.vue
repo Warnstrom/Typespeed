@@ -18,8 +18,7 @@
             name="username"
             class="textInput"
             v-model="input"
-            v-on:keydown.space="wordCheck(); calcAccuracy();"
-            v-on:keyup.space.once="startTest(); counter();"
+            v-on:keydown.space="wordCheck(); calcAccuracy(); startTest();"
             placeholder="Start typing..."
             :disabled="time != 0 ? false : true"
             spellcheck="false"
@@ -48,6 +47,9 @@
 
 <script>
 import { getWords, getCookie } from "../helper.js";
+import { getScores } from "../api.js";
+let timer;
+
 export default {
   name: "mainComponent",
   data: function() {
@@ -61,10 +63,13 @@ export default {
       wrong: 0,
       wpm: 0,
       accuracy: 0,
-      running: false
+      running: false,
+      scores: getScores()
     };
   },
-  mounted() {},
+  created() {
+    this.readWords();
+  },
   methods: {
     // Reads words from file into displayable array
     readWords() {
@@ -95,19 +100,24 @@ export default {
       }
     },
     startTest() {
+      if (this.running == false) {
+        var that = this;
+        timer = setInterval(function() {
+          that.counter();
+        }, 1000);
+      }
       this.running = true;
     },
     counter() {
-      setInterval(() => {
-        if (this.time == 0) {
-          clearInterval();
-        } else {
-          this.calcWordsPerMinute();
-          this.time--;
-        }
-      }, 1000);
+      if (this.time == 0) {
+        clearInterval(timer);
+      } else {
+        this.calcWordsPerMinute();
+        this.time--;
+      }
     },
     reset() {
+      clearInterval(timer);
       this.time = 60;
       this.running = false;
       this.wordList = "";
@@ -119,9 +129,6 @@ export default {
       this.wpm = 0;
       this.accuracy = 0;
     }
-  },
-  created() {
-    this.readWords();
   }
 };
 </script>

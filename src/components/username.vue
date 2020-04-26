@@ -11,7 +11,6 @@
 </template>
 
 <script>
-//import axios from "axios";
 import { setCookie } from "../helper.js";
 export default {
   name: "username",
