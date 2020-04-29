@@ -79,6 +79,7 @@ body,
 * {
   outline: none;
 }
+
 :root {
   --blue: #1228ce;
   --indigo: #727cf5;
