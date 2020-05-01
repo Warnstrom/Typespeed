@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-const url = 'https://locahost:8080/typespeed/get_scores.php'
-axios.get(url)
-.then(data=>console.log(data))
-.catch(err=>console.log(err))
 
+export const getScores = () => {
+    const url = 'http://localhost:8080/typespeed/get_scores.php'
+    axios.get(url)
+        .then(data => console.log(data))
+        .catch(err => console.log(err))
 
-
-
+}
 
 /*
 const SERVER_ROOT = 'https://localhost'

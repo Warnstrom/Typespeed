@@ -30,7 +30,7 @@ export default {
       username != ""
         ? (this.usernameIsSet = false)
         : (this.usernameIsSet = true);
-    },
+    }
   }
 };
 </script>
@@ -59,9 +59,10 @@ export default {
   font-weight: 700;
   font-style: normal;
 }
-body {
+body,
+html {
+  height: 100%;
   margin: 0;
-  padding: 0 15px 0 15px;
   color: var(--primary-text);
   font-variant-numeric: tabular-nums 0;
 }
@@ -79,7 +80,10 @@ body,
 * {
   outline: none;
 }
-
+#app {
+  padding: 0 15px 0 15px;
+  height: 100%;
+}
 :root {
   --blue: #1228ce;
   --indigo: #727cf5;

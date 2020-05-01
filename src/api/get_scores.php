@@ -1,11 +1,10 @@
 <?php 
 include "connect.php";
-echo "asdawdawd";
+echo "<p>Hello World</p>";
 if ($_SERVER['REQUEST_METHOD'] == 'GET')  {
+    header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     header('Access-Control-Allow-Origin: *');    
     header('Content-Type: application/json');
-    header("Access-Control-Allow-Origin", "*");
-    header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
     $sql = "SELECT * FROM users";
 

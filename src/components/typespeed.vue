@@ -1,56 +1,64 @@
 <template>
-  <div class="container">
-    <div class="content">
-      <div class="header">
-        <h1>
-          <span class="left-border"></span>
-          Hello, {{ username }}
-          <span style="float: right;">{{ time }}s</span>
-        </h1>
-        <h3>Here you can try your typing speed.</h3>
-      </div>
-      <div class="wordsContainer">
-        <span v-for="word in wordList" :key="word.id">{{ word }}</span>
-      </div>
-      <div class="inputContainer">
-        <form v-on:submit.prevent>
-          <input
-            name="username"
-            class="textInput"
-            v-model="input"
-            v-on:keydown.space="wordCheck(); calcAccuracy(); startTest();"
-            placeholder="Start typing..."
-            :disabled="time != 0 ? false : true"
-            spellcheck="false"
-            autocomplete="off"
-          />
-          <button class="playAgainButton" v-on:click="reset();">
-            <i class="material-icons" style="font-size:24px;">refresh</i>
-          </button>
-        </form>
-      </div>
+  <div>
+    <div class="row">
+      <h1 style="width: 100%;">
+        <span class="left-border"></span>
+        Hello, {{ username }}
+        <span style="float: right;">{{ time }}s</span>
+      </h1>
     </div>
-    <div class="testReview">
-      <div class="content">
-        <h1>Test end result</h1>
-        <p>WPM (Words per minute): {{ wpm }}</p>
-        <p>Accuracy: {{ accuracy }}%</p>
-        <p>Correct words: {{ correct }}</p>
-        <p>Wrong words: {{ wrong }}</p>
+    <div class="row">
+      <h3>Here you can try your typing speed.</h3>
+    </div>
+    <div class="row">
+      <div class="column inputs">
+        <div class="card">
+          <div class="wordsContainer">
+            <span v-for="word in wordList" :key="word.id">{{ word }}</span>
+          </div>
+          <div class="inputContainer">
+            <form v-on:submit.prevent>
+              <input
+                name="username"
+                class="textInput"
+                v-model="input"
+                v-on:keydown.space="wordCheck(); calcAccuracy(); startTest();"
+                placeholder="Start typing..."
+                :disabled="time != 0 ? false : true"
+                spellcheck="false"
+                autocomplete="off"
+              />
+            </form>
+          </div>
+        </div>
       </div>
-      <footer>
-        <button class="saveDataButton">
-          Save data
-          <i class="fa fa-send-o" style="font-size:18px;"></i>
-        </button>
-      </footer>
+      <div class="column results">
+        <div class="card">
+          <div class="testReview">
+            <div class="card-body">
+              <h1 style="margin-top: 0;">Test end result</h1>
+              <p>WPM (Words per minute): {{ wpm }}</p>
+              <p>Accuracy: {{ accuracy }}%</p>
+              <p>Correct words: {{ correct }}</p>
+              <p>Wrong words: {{ wrong }}</p>
+              <footer>
+                <button class="saveDataButton">Save data</button>
+                <button
+                  class="playAgainButton"
+                  style="margin-left: 70px;"
+                  v-on:click="reset();"
+                >Restart</button>
+              </footer>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { getWords, getCookie } from "../helper.js";
-import { getScores } from "../api.js";
 let timer;
 
 export default {
@@ -66,8 +74,7 @@ export default {
       wrong: 0,
       wpm: 0,
       accuracy: 0,
-      running: false,
-      scores: getScores()
+      running: false
     };
   },
   created() {
@@ -137,19 +144,16 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  max-height: 500px;
+.inputs {
+  -webkit-box-flex: 0;
   width: 100%;
-}
-.content {
-  transition: all 0.3s;
-  white-space: nowrap;
-}
 
+  height: 100%;
+}
+.results {
+  width: 100%;
+  height: auto;
+}
 .left-border {
   width: 4px;
   background: var(--primary);
@@ -159,39 +163,64 @@ export default {
   display: inline-block;
   vertical-align: middle;
 }
+.wordsContainer {
+  width: auto;
+  max-height: 70px;
+  padding: 15px;
+  margin-bottom: 5%;
+  border-radius: 10px;
+  background-color: #eef2f7;
+  overflow: hidden;
+}
 .wordsContainer > span {
   line-height: 45px;
   font-weight: bold;
   font-size: 20px;
   margin: 5px;
 }
-
 .wordsContainer > span:first-child {
   background-color: var(--success);
   border-radius: 5px;
   padding: 5px;
 }
-
+.inputContainer {
+  margin-top: 5%;
+}
+.textInput {
+  width: 100%;
+  height: 70px;
+  font-size: 20px;
+  line-height: 34px;
+  font-weight: 400;
+  display: inline-block;
+  line-height: 34px;
+  font-weight: 400;
+  padding: 0 10px 0 10px;
+  border-radius: 10px;
+  border: none;
+  outline: 0;
+  background-color: #eef2f7;
+  vertical-align: top;
+  box-sizing: border-box;
+}
+.textInput:focus {
+  border-left: 3px solid var(--primary);
+  color: var(--primary-text);
+  border-top: none;
+  border-bottom: none;
+  border-right: 3px solid var(--primary);
+}
 .testReview {
-  height: 100%;
-  width: 425px;
+  font-weight: bold;
   background-color: #eef2f7;
   border-radius: 10px;
-  padding: 0 20px 5px 20px;
-  margin-left: 150px;
 }
 .testReview > p {
   font-size: 18px;
 }
+
+.saveDataButton,
 .playAgainButton {
-  float: right;
-  height: 80px;
-  width: 100px;
-  font-size: 12px;
-  letter-spacing: 1px;
-  border-radius: 10px;
-}
-.saveDataButton {
   font-weight: bold;
   height: 40px;
   background-color: #eef2f7;
@@ -199,8 +228,6 @@ export default {
   letter-spacing: 1px;
   border-radius: 8px;
   border: 2px solid var(--primary);
-  display: inline-block;
-  align-self: flex-end;
 }
 footer {
   display: flex;
@@ -222,49 +249,16 @@ button:hover {
   border: 2px solid var(--blue);
   color: white;
 }
-
-.wordsContainer {
-  width: 850px;
-  height: 80px;
-  margin-top: 20px;
-  margin-bottom: 150px;
-  display: inline-block;
-  padding: 15px;
-  border: 0;
-  border-radius: 10px;
-  outline: 0;
-  background-color: #eef2f7;
-  vertical-align: top;
-  box-sizing: border-box;
-  overflow: hidden;
-}
-
-.textInput {
-  width: 700px;
-  height: 80px;
-  font-size: 20px;
-  line-height: 34px;
-  font-weight: 400;
-  display: inline-block;
-  line-height: 34px;
-  font-weight: 400;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 0;
-  padding-bottom: 0;
-  border-radius: 10px;
-
-  border: none;
-  outline: 0;
-  background-color: #eef2f7;
-  vertical-align: top;
-  box-sizing: border-box;
-}
-.textInput:focus {
-  border-left: 3px solid var(--primary);
-  color: var(--primary-text);
-  border-top: none;
-  border-bottom: none;
-  border-right: 3px solid var(--primary);
+@media only screen and (max-width: 1080px) {
+  .results {
+    flex: none;
+  }
+  .wordsContainer,
+  .textInput {
+    width: 100%;
+  }
+  .inputs {
+    max-width: 100%;
+  }
 }
 </style>

@@ -1,11 +1,15 @@
 <template>
   <div class="container">
-    <div class="content">
-      <h1>Welcome, please write your username.</h1>
-      <form v-on:submit="saveUsername(input)">
-        <input name="username" v-model="input" placeholder="Enter your username" />
-        <button class="playAgainButton">Log in</button>
-      </form>
+    <div class="container-wrap">
+      <div class="row">
+        <div class="column">
+          <h1>Welcome, please write your username.</h1>
+          <form v-on:submit="saveUsername(input)">
+            <input name="username" v-model="input" placeholder="Enter your username" />
+            <button class="playAgainButton">Log in</button>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -16,7 +20,7 @@ export default {
   name: "username",
   data: function() {
     return {
-      input: "",
+      input: ""
     };
   },
   methods: {
@@ -30,10 +34,7 @@ export default {
 <style scoped>
 .container {
   display: flex;
-  align-items: center;
   justify-content: center;
-  height: 100vh;
-  width: 100%;
 }
 input {
   width: 100%;
@@ -42,10 +43,7 @@ input {
   line-height: 34px;
   display: inline-block;
   color: #031b4e;
-  padding-left: 20px;
-  padding-right: 10px;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding: 0 10px 0 20px;
   border: none;
   border-radius: 14px;
   outline: 0;
@@ -61,31 +59,18 @@ input:focus {
 }
 .playAgainButton {
   transition: 0.3s;
-  float: right;
   height: 60px;
   width: 100%;
   margin-top: 20px;
-  border: none;
   color: #fff;
   background-color: var(--primary);
   text-transform: uppercase;
   text-decoration: none;
   font-size: 14px;
-  letter-spacing: 1px;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
   border-radius: 14px;
 }
 .playAgainButton:hover {
   background-color: var(--blue);
-}
-.content {
-  text-align: center;
-  line-height: 1.5;
-  transition: all 0.3s;
-  font-size: 14px;
-  border-radius: 3px;
-  white-space: nowrap;
 }
 </style>
