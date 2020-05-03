@@ -1,15 +1,16 @@
 <template>
-  <transition name="fade">
     <div>
       <div class="row">
         <div class="column" style="width: auto;">
           <div class="header">
             <h1>
               Leaderboard
-              <span style="float: right;"><router-link to="/typespeed">Go back</router-link></span>
+              <span style="float: right;">
+                <router-link to="/typespeed">Go back</router-link>
+              </span>
             </h1>
           </div>
-          <div style=" height: 50vh; overflow-x: hidden; overflow: scroll;">
+          <div style=" height: 50vh;overflow: scroll; overflow-x: hidden;">
             <table>
               <thead>
                 <tr>
@@ -127,7 +128,6 @@
         </div>
       </div>
     </div>
-  </transition>
 </template>
 
 <script>
@@ -139,14 +139,14 @@ export default {
       scores: getScores()
     };
   },
-  created() {},
+  mounted() {},
   methods: {}
 };
 </script>
 
 <style scoped>
-a {
-  height: 10px;
+table {
+    border-collapse: collapse;
 }
 thead {
   background-color: var(--primary);

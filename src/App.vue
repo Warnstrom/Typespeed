@@ -4,7 +4,7 @@
       <div class="container-wrap">
         <!--<username v-if="usernameIsSet" />
         <mainContent v-else />-->
-        <transition>
+        <transition name="fade">
           <router-view />
         </transition>
       </div>
@@ -87,6 +87,7 @@ body,
 * {
   outline: none;
 }
+
 #app {
   padding: 0 15px 0 15px;
   height: 100%;

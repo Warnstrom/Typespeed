@@ -1,5 +1,4 @@
 <template>
-  <transition name="fade">
     <div>
       <div class="row">
         <router-link to="/leaderboard">leaderboard</router-link>
@@ -59,7 +58,6 @@
         </div>
       </div>
     </div>
-  </transition>
 </template>
 
 <script>
