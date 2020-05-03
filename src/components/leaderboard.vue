@@ -4,11 +4,15 @@
       <div class="row">
         <div class="column" style="width: auto;">
           <div class="header">
-            <h1>
-              Leaderboard
-              <span style="float: right;"><router-link to="/typespeed">Go back</router-link></span>
-              <span style="float: right; margin-right: -500px;"><router-link to="/leaderboard">Top 10</router-link></span>
-            </h1>
+            <h1 style="width: 100%;">
+            Leaderboard
+            <span style="float: left;">
+              <router-link to="/typespeed">Go back</router-link>
+            </span>
+            <span style="float: right;">
+              <router-link to="/leaderboard">Top 10</router-link>
+            </span>
+          </h1>
           </div>
           <div class="scroll">
             <table class="table sticky">
@@ -166,7 +170,6 @@ a {
   text-decoration: none;
   padding: 10px;
   text-align: center;
-  margin-left: -1100px;
   border-radius: 8px;
   color: white;
   font-weight: bold;
@@ -182,6 +185,7 @@ thead {
 }
 th,
 td {
+  text-align: center;
   padding: 20px 40px 20px 40px;
 }
 tr {

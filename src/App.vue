@@ -160,7 +160,7 @@ a:hover {
   --white: #ffffff;
   --gray: #95aac9;
   --gray-dark: #3b506c;
-  --primary: #1633ff;
+  --primary: #4058D1;
   --secondary: #6e84a3;
   --success: #00d97e;
   --info: #39afd1;

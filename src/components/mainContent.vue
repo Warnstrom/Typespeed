@@ -44,8 +44,8 @@
                 <p>Accuracy: {{ accuracy }}%</p>
                 <p>Correct words: {{ correct }}</p>
                 <p>Wrong words: {{ wrong }}</p>
-                <footer>
-                  <button>
+                <footer>            
+                  <button name="button" v-on:click="timerRunning();">
                     <span>Save data</span>
                   </button>
                   <button
@@ -130,6 +130,11 @@ export default {
       } else {
         this.calcWordsPerMinute();
         this.time--;
+      }
+    },
+    timerRunning() {
+      if (this.time != 0) {
+        document.getElementById("button").disabled = true;
       }
     },
     reset() {
