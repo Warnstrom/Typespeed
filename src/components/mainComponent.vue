@@ -79,6 +79,8 @@ export default {
   font-size: 13px;
   letter-spacing: 1px;
   border-radius: 8px;
+  margin-bottom: 150px;
+  margin-top: 5px;
 }
 button {
   transition: 0.3s;

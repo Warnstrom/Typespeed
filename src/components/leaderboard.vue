@@ -58,7 +58,7 @@
         </div>
       </div>
     </div>
-  </div>
+    </div>
 </template>
 
 <script>
@@ -71,37 +71,94 @@ export default {
     };
   },
   created() {},
-  methods: {}
+  methods: {
+    showLeaderboard() {
+      return (this.show_leaderboard = true);
+    },
+    hideLeaderboard() {
+      return (this.show_leaderboard = false);
+    }
+  }
 };
 </script>
 
 <style scoped>
 .container {
   font-weight: bold;
-  display: flex;
   align-items: center;
   justify-content: center;
   max-height: 500px;
   width: 100%;
+  overflow: scroll;
+  overflow-x: hidden;
 }
 .content {
   transition: all 0.3s;
+  width: 620px;
+  height: 500px;
   white-space: nowrap;
+  margin-left: 75px;
 }
 
-thead {
+.top10,
+.GoBack {
+  font-weight: bold;
+  height: 40px;
+  font-size: 13px;
+  letter-spacing: 1px;
+  border-radius: 8px;
+  margin-bottom: 5px;
+}
+button {
+  transition: 0.3s;
+  color: #fff;
+  background-color: var(--primary);
+  border: none;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+button:hover {
+  background-color: var(--blue);
+  color: white;
+}
+.header {
+  text-align: center;
+  margin-left: 80px;
+  margin-right: 75px;
+}
+.BackButton {
+margin-right: 0px;
+margin-left: -78px;
+}
+
+.table thead {
   background-color: var(--primary);
   border: 1px solid var(--primary);
   color: white;
 }
-th,
+.table th,
 td {
   padding: 20px 40px 20px 40px;
 }
-tr {
+.table tr {
   border-radius: 10px;
 }
-tbody tr:nth-child(odd) {
+.table tbody tr:nth-child(odd) {
   background-color: #f2f2f2;
+}
+.table tbody {
+  height: 100px;
+}
+.table table {
+  border-collapse: collapse;
+  
+}
+.table.sticky th {
+  background-color: var(--primary);
+  position: sticky;
+  top: 0;
 }
 </style>
