@@ -111,6 +111,19 @@ body,
   width: 100%;
   padding: 15px 0 0 0;
 }
+a {
+  font-size: 20px;
+  background: var(--primary);
+  text-decoration: none;
+  padding: 10px;
+  text-align: center;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+}
+a:hover {
+  background: var(--blue);
+}
 .card {
   position: relative;
   display: flex;

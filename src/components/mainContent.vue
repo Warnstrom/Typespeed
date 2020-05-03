@@ -2,7 +2,6 @@
   <transition name="fade">
     <div>
       <div class="row">
-        <router-link to="/leaderboard">leaderboard</router-link>
         <h1 style="width: 100%;">
           <span class="left-border"></span>
           Hello, {{ username }}
@@ -10,7 +9,9 @@
         </h1>
       </div>
       <div class="row">
-        <h3>Here you can try your typing speed.</h3>
+        <h3 style="width: 100%;">Here you can try your typing speed.
+        <span style="float: right;"><router-link to="/leaderboard">Leaderboard</router-link></span>
+        </h3>
       </div>
       <div class="row">
         <div class="column inputs">

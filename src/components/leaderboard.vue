@@ -7,10 +7,11 @@
             <h1>
               Leaderboard
               <span style="float: right;"><router-link to="/typespeed">Go back</router-link></span>
+              <span style="float: right; margin-right: -500px;"><router-link to="/leaderboard">Top 10</router-link></span>
             </h1>
           </div>
-          <div style=" height: 50vh; overflow-x: hidden; overflow: scroll;">
-            <table>
+          <div class="scroll">
+            <table class="table sticky">
               <thead>
                 <tr>
                   <th>Date</th>
@@ -145,9 +146,35 @@ export default {
 </script>
 
 <style scoped>
-a {
-  height: 10px;
+.header {
+  text-align: center;
+  margin-left: 10px;
 }
+.column {
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+}
+.scroll {
+  height: 50vh;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+a {
+  font-size: 20px;
+  background: var(--primary);
+  text-decoration: none;
+  padding: 10px;
+  text-align: center;
+  margin-left: -1100px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+}
+a:hover {
+  background: var(--blue);
+}
+
 thead {
   background-color: var(--primary);
   border: 1px solid var(--primary);
@@ -162,5 +189,10 @@ tr {
 }
 tbody tr:nth-child(odd) {
   background-color: #f2f2f2;
+}
+.table.sticky th {
+  background-color: var(--primary);
+  position: sticky;
+  top: 0px;
 }
 </style>
