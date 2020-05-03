@@ -2,10 +2,12 @@
   <transition name="fade">
     <div>
       <div class="row">
-        <router-link to="/typespeed">mainContent</router-link>
         <div class="column" style="width: auto;">
           <div class="header">
-            <h1>Leaderboard</h1>
+            <h1>
+              Leaderboard
+              <span style="float: right;"><router-link to="/typespeed">Go back</router-link></span>
+            </h1>
           </div>
           <div style=" height: 50vh; overflow-x: hidden; overflow: scroll;">
             <table>
@@ -143,7 +145,9 @@ export default {
 </script>
 
 <style scoped>
-
+a {
+  height: 10px;
+}
 thead {
   background-color: var(--primary);
   border: 1px solid var(--primary);
