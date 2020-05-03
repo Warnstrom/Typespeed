@@ -1,15 +1,11 @@
 <template>
-  <div class="container">
-    <div class="container-wrap">
-      <div class="row">
-        <div class="column">
-          <h1>Welcome, please write your username.</h1>
-          <form v-on:submit="saveUsername(input)">
-            <input name="username" v-model="input" placeholder="Enter your username" />
-            <button class="playAgainButton">Log in</button>
-          </form>
-        </div>
-      </div>
+  <div class="row">
+    <div class="column">
+      <h1>Welcome, please write your username.</h1>
+      <form v-on:submit="saveUsername(input)">
+        <input name="username" v-model="input" placeholder="Enter your username" />
+        <button class="playAgainButton">Log in</button>
+      </form>
     </div>
   </div>
 </template>
@@ -45,7 +41,7 @@ input {
   color: #031b4e;
   padding: 0 10px 0 20px;
   border: none;
-  border-radius: 14px;
+  border-radius: 8px;
   outline: 0;
   background-color: #eef2f7;
   vertical-align: top;
@@ -68,7 +64,8 @@ input:focus {
   text-decoration: none;
   font-size: 14px;
   cursor: pointer;
-  border-radius: 14px;
+  border: none;
+  border-radius: 8px;
 }
 .playAgainButton:hover {
   background-color: var(--blue);

@@ -1,60 +1,65 @@
 <template>
-  <div>
-    <div class="row">
-      <h1 style="width: 100%;">
-        <span class="left-border"></span>
-        Hello, {{ username }}
-        <span style="float: right;">{{ time }}s</span>
-      </h1>
-    </div>
-    <div class="row">
-      <h3>Here you can try your typing speed.</h3>
-    </div>
-    <div class="row">
-      <div class="column inputs">
-        <div class="card">
-          <div class="wordsContainer">
-            <span v-for="word in wordList" :key="word.id">{{ word }}</span>
-          </div>
-          <div class="inputContainer">
-            <form v-on:submit.prevent>
-              <input
-                name="username"
-                class="textInput"
-                v-model="input"
-                v-on:keydown.space="wordCheck(); calcAccuracy(); startTest();"
-                placeholder="Start typing..."
-                :disabled="time != 0 ? false : true"
-                spellcheck="false"
-                autocomplete="off"
-              />
-            </form>
+  <transition name="fade">
+    <div>
+      <div class="row">
+        <router-link to="/leaderboard">leaderboard</router-link>
+        <h1 style="width: 100%;">
+          <span class="left-border"></span>
+          Hello, {{ username }}
+          <span style="float: right;">{{ time }}s</span>
+        </h1>
+      </div>
+      <div class="row">
+        <h3>Here you can try your typing speed.</h3>
+      </div>
+      <div class="row">
+        <div class="column inputs">
+          <div class="card">
+            <div class="wordsContainer">
+              <span v-for="word in wordList" :key="word.id">{{ word }}</span>
+            </div>
+            <div class="inputContainer">
+              <form v-on:submit.prevent>
+                <input
+                  name="username"
+                  class="textInput"
+                  v-model="input"
+                  v-on:keydown.space="wordCheck(); calcAccuracy(); startTest();"
+                  placeholder="Start typing..."
+                  :disabled="time != 0 ? false : true"
+                  spellcheck="false"
+                  autocomplete="off"
+                />
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="column results">
-        <div class="card">
-          <div class="testReview">
-            <div class="card-body">
-              <h1 style="margin-top: 0;">Test end result</h1>
-              <p>WPM (Words per minute): {{ wpm }}</p>
-              <p>Accuracy: {{ accuracy }}%</p>
-              <p>Correct words: {{ correct }}</p>
-              <p>Wrong words: {{ wrong }}</p>
-              <footer>
-                <button class="saveDataButton">Save data</button>
-                <button
-                  class="playAgainButton"
-                  style="margin-left: 70px;"
-                  v-on:click="reset();"
-                >Restart</button>
-              </footer>
+        <div class="column results">
+          <div class="card">
+            <div class="testReview">
+              <div class="card-body">
+                <h1 style="margin-top: 0;">Test result</h1>
+                <p>WPM (Words per minute): {{ wpm }}</p>
+                <p>Accuracy: {{ accuracy }}%</p>
+                <p>Correct words: {{ correct }}</p>
+                <p>Wrong words: {{ wrong }}</p>
+                <footer>
+                  <button>
+                    <span>Save data</span>
+                  </button>
+                  <button
+                    class="playAgainButton"
+                    style="margin-left: 70px;"
+                    v-on:click="reset();"
+                  >Restart</button>
+                </footer>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -62,7 +67,7 @@ import { getWords, getCookie } from "../helper.js";
 let timer;
 
 export default {
-  name: "typespeed",
+  name: "mainContent",
   data: function() {
     return {
       wordList: [],
@@ -147,7 +152,6 @@ export default {
 .inputs {
   -webkit-box-flex: 0;
   width: 100%;
-
   height: 100%;
 }
 .results {
@@ -175,13 +179,13 @@ export default {
 .wordsContainer > span {
   line-height: 45px;
   font-weight: bold;
-  font-size: 20px;
-  margin: 5px;
+  font-size: 22px;
+  margin: 0 10px 0 10px;
 }
 .wordsContainer > span:first-child {
   background-color: var(--success);
-  border-radius: 5px;
-  padding: 5px;
+  border-radius: 8px;
+  padding: 6px;
 }
 .inputContainer {
   margin-top: 5%;
@@ -219,24 +223,16 @@ export default {
   font-size: 18px;
 }
 
-.saveDataButton,
-.playAgainButton {
-  font-weight: bold;
-  height: 40px;
-  background-color: #eef2f7;
-  color: var(--primary);
-  letter-spacing: 1px;
-  border-radius: 8px;
-  border: 2px solid var(--primary);
-}
 footer {
   display: flex;
   height: 50%;
 }
 button {
-  transition: 0.3s;
-  color: #fff;
-  background-color: var(--primary);
+  font-weight: bold;
+  background-color: var(--primary-background);
+  color: var(--primary);
+  padding: 8px 12px;
+  border-radius: 8px;
   border: none;
   text-transform: uppercase;
   text-decoration: none;
@@ -246,19 +242,9 @@ button {
 }
 button:hover {
   background-color: var(--blue);
-  border: 2px solid var(--blue);
+  border: none;
   color: white;
-}
-@media only screen and (max-width: 1080px) {
-  .results {
-    flex: none;
-  }
-  .wordsContainer,
-  .textInput {
-    width: 100%;
-  }
-  .inputs {
-    max-width: 100%;
-  }
+  -webkit-transition: -webkit-transform 0.3s ease;
+  transition: transform 0.3s ease;
 }
 </style>

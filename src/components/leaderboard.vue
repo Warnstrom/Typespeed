@@ -1,12 +1,13 @@
 <template>
-  <div>
-    <div class="container">
-      <div class="container-wrap">
-        <div class="row">
-          <div class="column">
-            <div class="header">
-              <h1>Leaderboard</h1>
-            </div>
+  <transition name="fade">
+    <div>
+      <div class="row">
+        <router-link to="/typespeed">mainContent</router-link>
+        <div class="column" style="width: auto;">
+          <div class="header">
+            <h1>Leaderboard</h1>
+          </div>
+          <div style=" height: 50vh; overflow-x: hidden; overflow: scroll;">
             <table>
               <thead>
                 <tr>
@@ -52,19 +53,85 @@
                   <td>65</td>
                   <td>87%</td>
                 </tr>
+                <tr>
+                  <td>07-05-2020</td>
+                  <td>Robert</td>
+                  <td>65</td>
+                  <td>87%</td>
+                </tr>
+                <tr>
+                  <td>07-05-2020</td>
+                  <td>Robert</td>
+                  <td>65</td>
+                  <td>87%</td>
+                </tr>
+                <tr>
+                  <td>07-05-2020</td>
+                  <td>Robert</td>
+                  <td>65</td>
+                  <td>87%</td>
+                </tr>
+                <tr>
+                  <td>07-05-2020</td>
+                  <td>Robert</td>
+                  <td>65</td>
+                  <td>87%</td>
+                </tr>
+                <tr>
+                  <td>07-05-2020</td>
+                  <td>Robert</td>
+                  <td>65</td>
+                  <td>87%</td>
+                </tr>
+                <tr>
+                  <td>07-05-2020</td>
+                  <td>Robert</td>
+                  <td>65</td>
+                  <td>87%</td>
+                </tr>
+                <tr>
+                  <td>07-05-2020</td>
+                  <td>Robert</td>
+                  <td>65</td>
+                  <td>87%</td>
+                </tr>
+                <tr>
+                  <td>07-05-2020</td>
+                  <td>Robert</td>
+                  <td>65</td>
+                  <td>87%</td>
+                </tr>
+                <tr>
+                  <td>07-05-2020</td>
+                  <td>Robert</td>
+                  <td>65</td>
+                  <td>87%</td>
+                </tr>
+                <tr>
+                  <td>07-05-2020</td>
+                  <td>Robert</td>
+                  <td>65</td>
+                  <td>87%</td>
+                </tr>
+                <tr>
+                  <td>07-05-2020</td>
+                  <td>Robert</td>
+                  <td>65</td>
+                  <td>87%</td>
+                </tr>
               </tbody>
             </table>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
 import { getScores } from "../api.js";
 export default {
-  name: "typespeed",
+  name: "leaderboard",
   data: function() {
     return {
       scores: getScores()
@@ -76,18 +143,6 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  max-height: 500px;
-  width: 100%;
-}
-.content {
-  transition: all 0.3s;
-  white-space: nowrap;
-}
 
 thead {
   background-color: var(--primary);

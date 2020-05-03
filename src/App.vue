@@ -1,20 +1,27 @@
 <template>
   <div id="app">
-    <username v-if="usernameIsSet" />
-    <mainComponent v-else />
+    <div class="container">
+      <div class="container-wrap">
+        <!--<username v-if="usernameIsSet" />
+        <mainContent v-else />-->
+        <transition>
+          <router-view />
+        </transition>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import mainComponent from "./components/mainComponent.vue";
-import username from "./components/username.vue";
+//import username from "./components/username.vue";
+//import mainContent from "./components/mainContent.vue";
 import { getCookie } from "./helper.js";
 
 export default {
   name: "App",
   components: {
-    mainComponent,
-    username
+    //  mainContent,
+    //username
   },
   data: function() {
     return {
@@ -28,8 +35,8 @@ export default {
     checkUsername() {
       const username = getCookie("username");
       username != ""
-        ? (this.usernameIsSet = false)
-        : (this.usernameIsSet = true);
+        ? this.$router.push("/typespeed")
+        : this.$router.push("/login");
     }
   }
 };
@@ -84,6 +91,48 @@ body,
   padding: 0 15px 0 15px;
   height: 100%;
 }
+.container {
+  padding-top: 200px;
+  position: relative;
+  min-height: 100%;
+}
+.container-wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  position: relative;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  padding: -15px 0 0 -15px;
+}
+.column {
+  position: relative;
+  width: 100%;
+  padding: 15px 0 0 0;
+}
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  word-wrap: break-word;
+  background-clip: border-box;
+}
+.card-title {
+  margin-bottom: 5px;
+  margin-top: 5px;
+  position: relative;
+}
+.card-body {
+  flex: 1 1 auto;
+  padding: 1.25rem;
+}
+
+@media only screen and (max-width: 1080px) {
+  .container {
+    padding-top: 100px;
+  }
+}
 :root {
   --blue: #1228ce;
   --indigo: #727cf5;
@@ -101,10 +150,10 @@ body,
   --primary: #1633ff;
   --secondary: #6e84a3;
   --success: #00d97e;
-  /*00d97e*/
   --info: #39afd1;
   --warning: #f6c343;
   --danger: #e63757;
+  --primary-background: #eef2f7;
   --light: #edf2f9;
   --dark: #12263f;
   --font-family-sans-serif: "Cerebri Sans", sans-serif;
