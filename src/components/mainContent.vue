@@ -1,67 +1,71 @@
 <template>
-    <div>
-      <div class="row">
-        <h1 style="width: 100%;">
-          <span class="left-border"></span>
-          Hello, {{ username }}
-          <span style="float: right;">{{ time }}s</span>
-        </h1>
-      </div>
-      <div class="row">
-        <h3 style="width: 100%;">Here you can try your typing speed.
-        <span style="float: right;"><router-link to="/leaderboard">Leaderboard</router-link></span>
-        </h3>
-      </div>
-      <div class="row">
-        <div class="column inputs">
-          <div class="card">
-            <div class="wordsContainer">
-              <span v-for="word in wordList" :key="word.id">{{ word }}</span>
-            </div>
-            <div class="inputContainer">
-              <form v-on:submit.prevent>
-                <input
-                  name="username"
-                  class="textInput"
-                  v-model="input"
-                  v-on:keydown.space="wordCheck(); calcAccuracy(); startTest();"
-                  placeholder="Start typing..."
-                  :disabled="time != 0 ? false : true"
-                  spellcheck="false"
-                  autocomplete="off"
-                />
-              </form>
-            </div>
+  <div>
+    <div class="row">
+      <h1 style="width: 100%;">
+        <span class="left-border"></span>
+        Hello, {{ username }}
+        <span style="float: right;">{{ time }}s</span>
+      </h1>
+    </div>
+    <div class="row">
+      <h3 style="width: 100%;">
+        Here you can try your typing speed.
+        <span style="float: right;">
+          <router-link to="/leaderboard">Leaderboard</router-link>
+        </span>
+      </h3>
+    </div>
+    <div class="row">
+      <div class="column inputs">
+        <div class="card">
+          <div class="wordsContainer">
+            <span v-for="word in wordList" :key="word.id">{{ word }}</span>
+          </div>
+          <div class="inputContainer">
+            <form v-on:submit.prevent>
+              <input
+                name="username"
+                class="textInput"
+                v-model="input"
+                v-on:keydown.space="wordCheck(); calcAccuracy(); startTest();"
+                placeholder="Start typing..."
+                :disabled="time != 0 ? false : true"
+                spellcheck="false"
+                autocomplete="off"
+              />
+            </form>
           </div>
         </div>
-        <div class="column results">
-          <div class="card">
-            <div class="testReview">
-              <div class="card-body">
-                <h1 style="margin-top: 0;">Test result</h1>
-                <p>WPM (Words per minute): {{ wpm }}</p>
-                <p>Accuracy: {{ accuracy }}%</p>
-                <p>Correct words: {{ correct }}</p>
-                <p>Wrong words: {{ wrong }}</p>
-                <footer>
-                  <button>
-                    <span>Save data</span>
-                  </button>
-                  <button
-                    class="playAgainButton"
-                    style="margin-left: 70px;"
-                    v-on:click="reset();"
-                  >Restart</button>
-                </footer>
-              </div>
+      </div>
+      <div class="column results">
+        <div class="card">
+          <div class="testReview">
+            <div class="card-body">
+              <h1 style="margin-top: 0;">Test result</h1>
+              <p>WPM (Words per minute): {{ wpm }}</p>
+              <p>Accuracy: {{ accuracy }}%</p>
+              <p>Correct words: {{ correct }}</p>
+              <p>Wrong words: {{ wrong }}</p>
+              <footer>
+                <button :disabled="this.time != 0 ? true : false" v-on:click="saveData();">
+                  <span>Save data</span>
+                </button>
+                <button
+                  class="playAgainButton"
+                  style="margin-left: 70px;"
+                  v-on:click="reset();"
+                >Restart</button>
+              </footer>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
+import axios from "axios";
 import { getWords, getCookie } from "../helper.js";
 let timer;
 
@@ -94,6 +98,22 @@ export default {
     },
     calcWordsPerMinute() {
       this.wpm = this.correct;
+    },
+    saveData() {
+      axios
+        .post("http://localhost/save_data.php", {
+          name: this.username,
+          words_per_minute: this.wpm,
+          accuracy: this.accuracy,
+        })
+        .then(response => {
+          console.log(response.data);
+        })
+        .catch(error => {
+          this.errored = true;
+          return error;
+        })
+        .finally(() => (this.loading = false));
     },
     // Checks for valid words in array and return true it shifts the element from start to end
     wordCheck() {

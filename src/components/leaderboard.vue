@@ -107,6 +107,7 @@ thead {
 }
 th,
 td {
+  text-align: center;
   padding: 20px 40px 20px 40px;
 }
 td {
