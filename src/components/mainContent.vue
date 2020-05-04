@@ -47,8 +47,12 @@
               <p>Correct words: {{ correct }}</p>
               <p>Wrong words: {{ wrong }}</p>
               <footer>
-                <button :disabled="this.time != 0 ? true : false" v-on:click="saveData();">
+                <button
+                  :disabled="this.time != 0 ? true : false"
+                  v-on:click="saveData(); reset(); alert();"
+                >
                   <span>Save data</span>
+                  <div id="alert">Successfully saved!</div>
                 </button>
                 <button
                   class="playAgainButton"
@@ -104,7 +108,7 @@ export default {
         .post("http://localhost/save_data.php", {
           name: this.username,
           words_per_minute: this.wpm,
-          accuracy: this.accuracy,
+          accuracy: this.accuracy
         })
         .then(response => {
           console.log(response.data);
@@ -149,6 +153,14 @@ export default {
         this.calcWordsPerMinute();
         this.time--;
       }
+    },
+
+    alert() {
+      var x = document.getElementById("alert");
+      x.className = "show";
+      setTimeout(function() {
+        x.className = x.className.replace("show", "");
+      }, 3000);
     },
     reset() {
       clearInterval(timer);
@@ -195,6 +207,7 @@ export default {
   background-color: #eef2f7;
   overflow: hidden;
 }
+
 .wordsContainer > span {
   line-height: 45px;
   font-weight: bold;
@@ -240,6 +253,71 @@ export default {
 }
 .testReview > p {
   font-size: 18px;
+}
+
+#alert {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: var(--success);
+  color: var(--primary-text);
+  text-align: center;
+  border-radius: 8px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 280px;
+}
+#alert.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 280px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 280px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 280px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 280px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
 }
 
 footer {
