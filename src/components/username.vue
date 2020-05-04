@@ -21,6 +21,8 @@ export default {
   },
   methods: {
     saveUsername(username) {
+      console.log(window.location.href);
+      window.location.href = "/typespeed";
       setCookie(username);
     }
   }

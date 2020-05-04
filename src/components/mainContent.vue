@@ -105,7 +105,7 @@ export default {
     },
     saveData() {
       axios
-        .post("http://localhost/save_data.php", {
+        .post("https://warnstrom.com/API/save_data.php", {
           name: this.username,
           words_per_minute: this.wpm,
           accuracy: this.accuracy

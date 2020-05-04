@@ -25,10 +25,10 @@
             </thead>
             <tbody v-for="item in scores" v-bind:key="item.id">
               <tr>
-                <td>{{ item.name }}</td>
-                <td>{{item.words_per_minute }}</td>
-                <td>{{ item.accuracy }}%</td>
-                <td>{{ item.date.slice(0, 10) }}</td>
+                <td>{{ item.Username }}</td>
+                <td>{{item.Words_Per_Minute }}</td>
+                <td>{{ item.Accuracy }}%</td>
+                <td>{{ item.Date_played.slice(0, 10) }}</td>
               </tr>
             </tbody>
           </table>
@@ -47,13 +47,13 @@ export default {
       scores: ""
     };
   },
-  mounted() {
+  created() {
     this.getScores();
   },
   methods: {
     getScores() {
       axios
-        .get("http://localhost/get_scores.php")
+        .get("https://warnstrom.com/API/get_scores.php")
         .then(response => {
           console.log(response.data);
           this.scores = response.data;
