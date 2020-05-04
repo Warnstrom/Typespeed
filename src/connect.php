@@ -1,6 +1,4 @@
 <?php
-// Password: AA6gr5ykw6Kohpe2wP86tpjYnVh4Sc
-// Username: warnstro_root
  
 
 <?php
