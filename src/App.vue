@@ -2,8 +2,6 @@
   <div id="app">
     <div class="container">
       <div class="container-wrap">
-        <!--<username v-if="usernameIsSet" />
-        <mainContent v-else />-->
         <transition name="fade">
           <router-view />
         </transition>
@@ -13,20 +11,12 @@
 </template>
 
 <script>
-//import username from "./components/username.vue";
-//import mainContent from "./components/mainContent.vue";
 import { getCookie } from "./helper.js";
 
 export default {
   name: "App",
-  components: {
-    //  mainContent,
-    //username
-  },
   data: function() {
-    return {
-      usernameIsSet: false
-    };
+    return {};
   },
   mounted() {
     this.checkUsername();
@@ -34,9 +24,11 @@ export default {
   methods: {
     checkUsername() {
       const username = getCookie("username");
-      username != ""
-        ? this.$router.push("/typespeed")
-        : this.$router.push("/login");
+      if (username != "") {
+        this.$router.push("/typespeed");
+      } else {
+        this.$router.push("/login");
+      }
     }
   }
 };
@@ -161,7 +153,7 @@ a:hover {
   --white: #ffffff;
   --gray: #95aac9;
   --gray-dark: #3b506c;
-  --primary: #4058D1;
+  --primary: #4058d1;
   --secondary: #6e84a3;
   --success: #00d97e;
   --info: #39afd1;

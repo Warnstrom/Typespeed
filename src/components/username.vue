@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="column">
+    <div class="column" style="margin: 0 auto; width: 40rem;">
       <h1>Welcome, please write your username.</h1>
       <form v-on:submit="saveUsername(input)">
         <input name="username" v-model="input" placeholder="Enter your username" />
@@ -21,8 +21,7 @@ export default {
   },
   methods: {
     saveUsername(username) {
-      console.log(window.location.href);
-      window.location.href = "/typespeed";
+      this.$router.push("/typespeed");
       setCookie(username);
     }
   }

@@ -23,8 +23,8 @@
                 <th>Date</th>
               </tr>
             </thead>
-            <tbody v-for="item in scores" v-bind:key="item.id">
-              <tr>
+            <tbody>
+              <tr v-for="item in scores" v-bind:key="item.id">
                 <td>{{ item.Username }}</td>
                 <td>{{item.Words_Per_Minute }}</td>
                 <td>{{ item.Accuracy }}%</td>
@@ -82,6 +82,9 @@ table {
   width: 100%;
 }
 .scroll {
+  background-color: #eef2f7;
+  border: none;
+  border-radius: 10px;
   height: 50vh;
   overflow: scroll;
   overflow-x: hidden;
@@ -112,9 +115,8 @@ td {
 }
 td {
   text-align: center;
-}
-tr {
-  border-radius: 10px;
+  border-bottom: 1px solid #dbdbdb;
+
 }
 tbody tr:nth-child(odd) {
   background-color: #f2f2f2;

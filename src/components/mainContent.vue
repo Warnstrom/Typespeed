@@ -154,7 +154,6 @@ export default {
         this.time--;
       }
     },
-
     alert() {
       var x = document.getElementById("alert");
       x.className = "show";
@@ -225,7 +224,7 @@ export default {
 .textInput {
   width: 100%;
   height: 70px;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 34px;
   font-weight: 400;
   display: inline-block;
