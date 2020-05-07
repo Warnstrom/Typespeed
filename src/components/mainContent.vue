@@ -11,7 +11,7 @@
       <h3 style="width: 100%;">
         Here you can try your typing speed.
         <span style="float: right;">
-          <router-link to="/leaderboard">Leaderboard</router-link>
+          <router-link to="/leaderboard">Scoreboard</router-link>
         </span>
       </h3>
     </div>
@@ -106,12 +106,9 @@ export default {
     saveData() {
       axios
         .post("https://warnstrom.com/API/save_data.php", {
-          name: this.username,
+          username: this.username,
           words_per_minute: this.wpm,
           accuracy: this.accuracy
-        })
-        .then(response => {
-          console.log(response.data);
         })
         .catch(error => {
           this.errored = true;
@@ -198,12 +195,13 @@ export default {
   vertical-align: middle;
 }
 .wordsContainer {
+  transition: 0.3s;
   width: auto;
   max-height: 70px;
   padding: 15px;
   margin-bottom: 5%;
   border-radius: 10px;
-  background-color: #eef2f7;
+  background-color: var(--primary-background);
   overflow: hidden;
 }
 
@@ -222,6 +220,7 @@ export default {
   margin-top: 5%;
 }
 .textInput {
+  transition: 0.3s;
   width: 100%;
   height: 70px;
   font-size: 18px;
@@ -233,21 +232,23 @@ export default {
   padding: 0 10px 0 10px;
   border-radius: 10px;
   border: none;
+  color: var(--primary-text);
   outline: 0;
-  background-color: #eef2f7;
+  background-color: var(--primary-background);
   vertical-align: top;
   box-sizing: border-box;
 }
 .textInput:focus {
+  transition: none;
   border-left: 3px solid var(--primary);
-  color: var(--primary-text);
   border-top: none;
   border-bottom: none;
   border-right: 3px solid var(--primary);
 }
 .testReview {
+  transition: 0.3s;
   font-weight: bold;
-  background-color: #eef2f7;
+  background-color: var(--primary-background);
   border-radius: 10px;
 }
 .testReview > p {
@@ -324,9 +325,10 @@ footer {
   height: 50%;
 }
 button {
+  transition: 0.3s;
   font-weight: bold;
-  background-color: var(--primary-background);
-  color: var(--primary);
+  background-color: var(--primary);
+  color: white;
   padding: 8px 12px;
   border-radius: 8px;
   border: none;
@@ -337,10 +339,16 @@ button {
   justify-content: center;
 }
 button:hover {
-  background-color: var(--blue);
+  background-color: var(--button-hover);
   border: none;
   color: white;
   -webkit-transition: -webkit-transform 0.3s ease;
   transition: transform 0.3s ease;
+}
+
+@media only screen and (max-width: 1080px) {
+  .container {
+    padding-top: 100px;
+  }
 }
 </style>

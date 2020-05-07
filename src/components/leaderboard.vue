@@ -4,12 +4,12 @@
       <div class="column" style="width: auto;">
         <div class="header">
           <h1 style="width: 100%;">
-            Leaderboard
+            Scoreboard
             <span style="float: left;">
               <router-link to="/typespeed">Go back</router-link>
             </span>
             <span style="float: right;">
-              <router-link to="/leaderboard">Top 10</router-link>
+              <button v-on:click="loadTop10()">Top 10</button>
             </span>
           </h1>
         </div>
@@ -25,9 +25,9 @@
             </thead>
             <tbody>
               <tr v-for="item in scores" v-bind:key="item.id">
-                <td>{{ item.Username }}</td>
-                <td>{{item.Words_Per_Minute }}</td>
-                <td>{{ item.Accuracy }}%</td>
+                <td>{{ item.username }}</td>
+                <td>{{item.words_per_minute }}</td>
+                <td>{{ item.accuracy }}%</td>
                 <td>{{ item.Date_played.slice(0, 10) }}</td>
               </tr>
             </tbody>
@@ -55,7 +55,21 @@ export default {
       axios
         .get("https://warnstrom.com/API/get_scores.php")
         .then(response => {
-          console.log(response.data);
+          console.log("I loaded your data! :)");
+          this.scores = response.data;
+        })
+        .catch(error => {
+          this.errored = true;
+          return error;
+        })
+        .finally(() => (this.loading = false));
+    },
+    loadTop10() {
+      this.scores = "";
+      axios
+        .get("https://warnstrom.com/API/get_top_10.php")
+        .then(response => {
+          console.log("I loaded your top 10 data! :)");
           this.scores = response.data;
         })
         .catch(error => {
@@ -70,6 +84,8 @@ export default {
 
 <style scoped>
 table {
+    transition: .3s;
+
   border-collapse: collapse;
 }
 
@@ -82,27 +98,33 @@ table {
   width: 100%;
 }
 .scroll {
-  background-color: #eef2f7;
+  background-color: var(--primary-background);
   border: none;
   border-radius: 10px;
   height: 50vh;
   overflow: scroll;
   overflow-x: hidden;
 }
-a {
+button {
+  transition: 0.3s;
   font-size: 20px;
-  background: var(--primary);
+  background-color: var(--primary);
   text-decoration: none;
   padding: 10px;
   text-align: center;
+  border: none;
+  cursor: pointer;
   border-radius: 8px;
   color: white;
   font-weight: bold;
 }
-a:hover {
-  background: var(--blue);
+button:hover {
+  background-color: var(--button-hover);
+  border: none;
+  color: white;
+  -webkit-transition: -webkit-transform 0.3s ease;
+  transition: transform 0.3s ease;
 }
-
 thead {
   background-color: var(--primary);
   border: 1px solid var(--primary);
@@ -116,10 +138,18 @@ td {
 td {
   text-align: center;
   border-bottom: 1px solid #dbdbdb;
+}
+tr {
+    transition: .3s;
 
 }
 tbody tr:nth-child(odd) {
-  background-color: #f2f2f2;
+    transition: .3s;
+  background-color: var(--odd-leaderboard);
+}
+
+tbody tr:hover {
+  background-color: var(--hover-leaderboard);
 }
 .table.sticky th {
   background-color: var(--primary);

@@ -11,6 +11,7 @@
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
     "fs": "0.0.1-security",
+    "gsap": "^3.2.6",
     "mysql": "github:mysqljs/mysql",
     "vue": "^2.6.11",
     "vue-router": "^3.1.6"

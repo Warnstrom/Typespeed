@@ -34,6 +34,7 @@ export default {
   justify-content: center;
 }
 input {
+  transition: 0.3s;
   width: 100%;
   height: 60px;
   font-size: 20px;
@@ -44,11 +45,13 @@ input {
   border: none;
   border-radius: 8px;
   outline: 0;
-  background-color: #eef2f7;
+  color: var(--primary-text);
+  background-color: var(--primary-background);
   vertical-align: top;
   box-sizing: border-box;
 }
 input:focus {
+  transition: none;
   border-left: 3px solid var(--primary);
   border-top: none;
   border-bottom: none;

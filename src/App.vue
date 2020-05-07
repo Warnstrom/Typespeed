@@ -2,7 +2,14 @@
   <div id="app">
     <div class="container">
       <div class="container-wrap">
-        <transition name="fade">
+        <div class="theme-switch-wrapper">
+          <em>Try out dark mode -></em>
+          <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox" v-on:click="toggle()" />
+            <div class="slider round"></div>
+          </label>
+        </div>
+        <transition name="fade" mode="out-in">
           <router-view />
         </transition>
       </div>
@@ -16,12 +23,23 @@ import { getCookie } from "./helper.js";
 export default {
   name: "App",
   data: function() {
-    return {};
+    return {
+      toggleTheme: false
+    };
   },
   mounted() {
     this.checkUsername();
   },
   methods: {
+    toggle() {
+      if (this.toggleTheme === false) {
+        this.toggleTheme = true;
+        document.documentElement.setAttribute("data-theme", "dark");
+      } else {
+        this.toggleTheme = false;
+        document.documentElement.setAttribute("data-theme", "");
+      }
+    },
     checkUsername() {
       const username = getCookie("username");
       if (username != "") {
@@ -35,6 +53,62 @@ export default {
 </script>
 
 <style>
+.theme-switch-wrapper {
+  display: flex;
+  align-items: center;
+}
+em {
+  margin-right: 10px;
+  font-size: 1rem;
+}
+.theme-switch {
+  display: inline-block;
+  height: 34px;
+  position: relative;
+  width: 60px;
+}
+
+.theme-switch input {
+  display: none;
+}
+
+.slider {
+  background-color: var(--primary-background);
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: 0.4s;
+}
+
+.slider:before {
+  background-color: #fff;
+  bottom: 4px;
+  content: "";
+  height: 26px;
+  left: 4px;
+  position: absolute;
+  transition: 0.4s;
+  width: 26px;
+}
+
+input:checked + .slider {
+  background-color: var(--primary);
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
 @font-face {
   font-family: "Cerebri Sans";
   src: url(../fonts/Cerebri-Sans/CerebriSans-Light.eot);
@@ -60,6 +134,8 @@ export default {
 }
 body,
 html {
+  transition: 0.3s;
+  background: var(--white);
   height: 100%;
   margin: 0;
   color: var(--primary-text);
@@ -104,9 +180,13 @@ body,
   width: 100%;
   padding: 15px 0 0 0;
 }
+span > a {
+  transition: 0.3s;
+}
 a {
+  transition: 0.3s;
   font-size: 20px;
-  background: var(--primary);
+  background-color: var(--primary);
   text-decoration: none;
   padding: 10px;
   text-align: center;
@@ -115,7 +195,7 @@ a {
   font-weight: bold;
 }
 a:hover {
-  background: var(--blue);
+  background: var(--button-hover);
 }
 .card {
   position: relative;
@@ -139,7 +219,7 @@ a:hover {
     padding-top: 100px;
   }
 }
-:root {
+html {
   --blue: #1228ce;
   --indigo: #727cf5;
   --purple: #6b5eae;
@@ -153,16 +233,28 @@ a:hover {
   --white: #ffffff;
   --gray: #95aac9;
   --gray-dark: #3b506c;
-  --primary: #4058d1;
+  --primary: #0779e4;
   --secondary: #6e84a3;
   --success: #00d97e;
   --info: #39afd1;
   --warning: #f6c343;
   --danger: #e63757;
   --primary-background: #eef2f7;
-  --light: #edf2f9;
+  --hover-leaderboard: #dbdbdb;
+  --odd-leaderboard: #f2f2f2;
+  --button-hover: #0356a3;
   --dark: #12263f;
   --font-family-sans-serif: "Cerebri Sans", sans-serif;
   --primary-text: #031b4e;
+}
+html[data-theme="dark"] {
+  --primary-text: white;
+  --primary-background: #152e4d;
+  --odd-leaderboard: #122842;
+  --hover-leaderboard: #10233a;
+  --button-hover: #00376b;
+  --white: #0f253b;
+  --primary: #00488b;
+  --blue: #00488b;
 }
 </style>
