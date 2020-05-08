@@ -1,10 +1,10 @@
 <template>
   <div class="row">
     <div class="column" style="margin: 0 auto; width: 40rem;">
-      <h1>Welcome, please write your username.</h1>
+      <h1>Welcome, please choose a username.</h1>
       <form v-on:submit="saveUsername(input)">
         <input name="username" v-model="input" placeholder="Enter your username" />
-        <button class="playAgainButton">Log in</button>
+        <button class="playAgainButton">Play</button>
       </form>
     </div>
   </div>
@@ -20,6 +20,12 @@ export default {
     };
   },
   methods: {
+    /**
+     * Saves a username in browser cookies/localstorage
+     *
+     * @param {saveUsername} username
+     *
+     */
     saveUsername(username) {
       this.$router.push("/typespeed");
       setCookie(username);

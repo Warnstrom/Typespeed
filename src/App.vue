@@ -41,6 +41,7 @@ export default {
       }
     },
     checkUsername() {
+      // Check if we've saved a username in cookies if not redirect to /login page
       const username = getCookie("username");
       if (username != "") {
         this.$router.push("/typespeed");

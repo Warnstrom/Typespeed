@@ -1,4 +1,4 @@
-import words from "../public/words.json";
+import words from "../public/words2.json";
 
 export const getCookie = (username) => {
     let username_string = username + "=";
@@ -22,14 +22,9 @@ export const setCookie = (username) => {
 
 export const getWords = () => {
     let ctr = words.length, temp, index;
-
-    // While there are elements in the array
     while (ctr > 0) {
-        // Pick a random index
         index = Math.floor(Math.random() * ctr);
-        // Decrease ctr by 1
         ctr--;
-        // And swap the last element with it
         temp = words[ctr];
         words[ctr] = words[index];
         words[index] = temp;

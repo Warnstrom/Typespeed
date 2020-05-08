@@ -97,12 +97,32 @@ export default {
     readWords() {
       this.wordList = getWords();
     },
+    /**
+     * calcAccuracy()
+     ----------------------------
+     * Calculates the correct accuracy and displays it reactivly
+     * from total written words and
+     * amount of correct written words.
+     **/
+
     calcAccuracy() {
       this.accuracy = Math.round((this.correct / this.total) * 100);
     },
+    /**
+     * calcWordsPerMinute()
+     ----------------------------
+     * Saves the corrected written words into WPM since we're only
+     * using a 60 second timer so we can automatically the same number.
+     */
     calcWordsPerMinute() {
       this.wpm = this.correct;
     },
+    /**
+     * saveData()
+     ----------------------------
+     * After the test is done send every data with a POST request
+     * to save_data.php which send it to the database.
+     **/
     saveData() {
       axios
         .post("https://warnstrom.com/API/save_data.php", {
@@ -116,7 +136,23 @@ export default {
         })
         .finally(() => (this.loading = false));
     },
-    // Checks for valid words in array and return true it shifts the element from start to end
+    /**
+    * wordCheck()
+    ----------------------------
+     * After each time you press space it checks if the input word is 
+     * the same as the one in the words array.
+     * 
+     * If true: 
+     * Remove the word from the array and 
+     * shift it back to the end of the array
+     * empty the input and increment correct and total words.
+     * 
+     * If false: 
+     * Remove the word from the array and 
+     * shift it back to the end of the words array
+     * empty the input and increment wrong and total words
+     * also check if the correct words is at 0 to avoid going negative
+     * */
     wordCheck() {
       let inputWord = this.input;
       if (inputWord.trim() == this.wordList[0]) {
@@ -134,6 +170,13 @@ export default {
         }
       }
     },
+    /**
+     * startTest()
+     ----------------------------
+     * Start the program interval
+     * and each second while this.running = true
+     * run the counter() function
+     */
     startTest() {
       if (this.running == false) {
         let that = this;
@@ -143,6 +186,13 @@ export default {
       }
       this.running = true;
     },
+    /**
+     * counter()
+     ----------------------------
+     * As long as the timer is not 0 
+     * decrement the timer
+     * and run the calcWordsPerMinute()
+     */
     counter() {
       if (this.time == 0) {
         clearInterval(timer);
@@ -151,6 +201,13 @@ export default {
         this.time--;
       }
     },
+    /**
+     * alert()
+     ----------------------------
+     * After a successful save into database
+     * snow a popup box with the text "Data successfully saved"
+     * for 3 seconds
+     */
     alert() {
       var x = document.getElementById("alert");
       x.className = "show";
@@ -158,6 +215,12 @@ export default {
         x.className = x.className.replace("show", "");
       }, 3000);
     },
+    /**
+     * reset()
+     ----------------------------
+     * Runs when "restart" button is clicked
+     * and it resets all the variables
+     */
     reset() {
       clearInterval(timer);
       this.time = 60;
