@@ -3,7 +3,7 @@
     <div class="column" style="margin: 0 auto; width: 40rem;">
       <h1>Welcome, please choose a username.</h1>
       <form v-on:submit="saveUsername(input)">
-        <input name="username" v-model="input" placeholder="Enter your username" />
+        <input name="username" v-model="input" placeholder="Enter your username" autofocus />
         <button class="playAgainButton">Play</button>
       </form>
     </div>
