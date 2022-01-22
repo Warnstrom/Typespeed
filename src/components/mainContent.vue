@@ -32,6 +32,7 @@
                 :disabled="time != 0 ? false : true"
                 spellcheck="false"
                 autocomplete="off"
+                autofocus
               />
             </form>
           </div>
