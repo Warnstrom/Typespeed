@@ -2,12 +2,27 @@
   <div id="app">
     <div class="container">
       <div class="container-wrap">
-        <div class="theme-switch-wrapper">
-          <em>Try out dark mode -></em>
-          <label class="theme-switch" for="checkbox">
-            <input type="checkbox" id="checkbox" v-on:click="toggle()" />
-            <div class="slider round"></div>
-          </label>
+        <div class="row">
+          <div class="column">
+            <div class="card">
+              <header class="header-container">
+                <div class="card-body">
+                  <div class="theme-switch-wrapper">
+                    <!--<em>Try out dark mode -></em>-->
+                    <label class="theme-switch" for="checkbox">
+                      <input
+                        type="checkbox"
+                        id="checkbox"
+                        v-on:click="toggle()"
+                      />
+                      <div class="slider round"></div>
+                    </label>
+                    <button class="">Multiplayer</button>
+                  </div>
+                </div>
+              </header>
+            </div>
+          </div>
         </div>
         <transition name="fade" mode="out-in">
           <router-view />
@@ -22,9 +37,9 @@ import { getCookie } from "./helper.js";
 
 export default {
   name: "App",
-  data: function() {
+  data: function () {
     return {
-      toggleTheme: false
+      toggleTheme: false,
     };
   },
   mounted() {
@@ -48,8 +63,8 @@ export default {
       } else {
         this.$router.push("/login");
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -74,7 +89,7 @@ em {
 }
 
 .slider {
-  background-color: var(--primary-background);
+  background-color: var(--primary-text);
   bottom: 0;
   cursor: pointer;
   left: 0;
@@ -197,6 +212,14 @@ a {
 }
 a:hover {
   background: var(--button-hover);
+}
+.header-container {
+  background-color: #eef2f7;
+  display: flex;
+  justify-content: flex-start;
+  transition: 0.3s;
+  background-color: var(--primary-background);
+  border-radius: 10px;
 }
 .card {
   position: relative;

@@ -137,7 +137,6 @@ td {
 }
 td {
   text-align: center;
-  border-bottom: 1px solid #dbdbdb;
 }
 tr {
     transition: .3s;
@@ -156,4 +155,26 @@ tbody tr:hover {
   position: sticky;
   top: 0px;
 }
+/* Support for Firefox */
+* {
+  transition: 0.3s ease-in-out;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-color) var(--scrollbar-background);
+}
+
+/* Support for Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--scrollbar-background);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-color);
+  border-radius: 20px;
+  border: none;
+}
+
 </style>
